@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'slug'];
 
@@ -18,11 +19,6 @@ class Company extends Model
     {
         return $this->belongsToMany(User::class);
     }
-
-    // public function companyLocations(): HasMany
-    // {
-    //     return $this->hasMany(Location::class);
-    // }
 
     public function roles(): HasMany
     {
