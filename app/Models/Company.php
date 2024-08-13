@@ -20,7 +20,7 @@ class Company extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function locations(): HasMany
+    public function companyLocations(): HasMany
     {
         return $this->hasMany(Location::class);
     }
