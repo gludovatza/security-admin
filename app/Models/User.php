@@ -3,17 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Filament\Panel;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use BezhanSalleh\FilamentShield\Support\Utils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements FilamentUser, HasTenants
 {
@@ -55,8 +57,16 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
-        // return str_ends_with($this->email, '@admin.hu'); // cégek belépési e-mail címének domain-je
+        if($this->hasRole(Utils::getSuperAdminName()))
+        {
+            return true;
+        }
+        else if ($panel->getId() === 'company')
+        {
+            return $this->hasRole(config('filament-shield.company_admin.name', 'company_admin'))
+                || $this->hasRole(config('filament-shield.company_user.name', 'company_user'));
+        }
+        return false;
     }
 
     public function companies(): BelongsToMany

@@ -23,6 +23,10 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $tenantOwnershipRelationshipName = 'companies';
+
+    protected static ?string $tenantRelationshipName = 'members';
+
     public static function form(Form $form): Form
     {
         return $form
