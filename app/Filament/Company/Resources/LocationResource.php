@@ -19,6 +19,10 @@ class LocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $tenantOwnershipRelationshipName = 'company';
+
+    protected static ?string $tenantRelationshipName = 'companyLocations';
+
     public static function form(Form $form): Form
     {
         return $form
