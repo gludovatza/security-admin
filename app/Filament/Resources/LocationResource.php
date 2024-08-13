@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Company\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\Company\Resources\LocationResource\Pages;
-use App\Filament\Company\Resources\LocationResource\RelationManagers;
+use App\Filament\Resources\LocationResource\Pages;
+use App\Filament\Resources\LocationResource\RelationManagers;
 use App\Models\Location;
 use Filament\Forms;
 use Filament\Forms\Form;
