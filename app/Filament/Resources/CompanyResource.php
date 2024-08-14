@@ -43,6 +43,15 @@ class CompanyResource extends Resource
                 Forms\Components\TextInput::make('name')->label(__('fields.name'))
                     ->required()
                     ->maxLength(255),
+                Forms\Components\FileUpload::make('logo')->label(__('fields.logo'))
+                    ->image()
+                    ->avatar()
+                    ->imageEditor()
+                    ->circleCropper()
+                    ->preserveFilenames()
+                    ->openable()
+                    ->downloadable()
+                    ->maxSize(20000),
             ]);
     }
 

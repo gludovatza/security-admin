@@ -6,6 +6,8 @@ return [
     'company_management' => 'Vállalat menedzsment',
   ],
 
+  'company_profile' => 'Vállalat szerkesztése',
+
   'permissions' => [
     'label' => 'Engedély',
     'plural_label' => 'Engedélyek',

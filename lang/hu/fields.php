@@ -10,7 +10,7 @@ return [
     'no' => 'Nem',
     'inactive' => 'Inaktív',
     'all' => 'Mind',
-    'attachment' => 'Csatolt fájl',
+    'logo' => 'Logó',
     'email' => 'E-mail cím',
     'password' => 'Jelszó',
     'new_password' => 'Új Jelszó',

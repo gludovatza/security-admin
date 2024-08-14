@@ -6,6 +6,8 @@ return [
     'company_management' => 'Company Management',
   ],
 
+  'company_profile' => 'Company profile',
+
   'permissions' => [
     'label' => 'Permission',
     'plural_label' => 'Permissions',

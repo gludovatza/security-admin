@@ -10,7 +10,7 @@ return [
     'no' => 'No',
     'inactive' => 'Inactive',
     'all' => 'All',
-    'attachment' => 'Attachment',
+    'logo' => 'Logo',
     'email' => 'Email',
     'password' => 'Password',
     'new_password' => 'New Password',

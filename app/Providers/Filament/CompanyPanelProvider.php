@@ -65,9 +65,10 @@ class CompanyPanelProvider extends PanelProvider
                 function (): View {
                     $url_parts = explode('/', url()->previous()); // pl.: localhost:8000/company/first-company
                     $slug = end($url_parts);
-                    $companyName = Company::where('slug', $slug)->first()->name;
-                    return view('companyName', [
-                        'name' => $companyName
+                    $company = Company::where('slug', $slug)->first();
+                    return view('company', [
+                        'name' => $company?->name,
+                        'logo' => $company?->logo,
                     ]);
                 },
             );
