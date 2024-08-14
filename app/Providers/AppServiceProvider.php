@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 use Filament\Support\Facades\FilamentView;
 use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
-use Illuminate\Contracts\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {

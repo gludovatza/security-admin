@@ -19,6 +19,8 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Contracts\View\View;
 
 class CompanyPanelProvider extends PanelProvider
 {
@@ -55,8 +57,19 @@ class CompanyPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->brandName(fn() => ( ! auth()->user()) ? 'Security Admin' : auth()->user()->companies()->first()->name)
+            ->brandName(fn() => (! auth()->user()) ? 'Security Admin' : auth()->user()->companies()->first()->name)
             ->tenant(Company::class, slugAttribute: 'slug')
-            ->tenantProfile(EditCompanyProfile::class);
+            ->tenantProfile(EditCompanyProfile::class)
+            ->renderHook(
+                PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE,
+                function (): View {
+                    $url_parts = explode('/', url()->previous()); // pl.: localhost:8000/company/first-company
+                    $slug = end($url_parts);
+                    $companyName = Company::where('slug', $slug)->first()->name;
+                    return view('companyName', [
+                        'name' => $companyName
+                    ]);
+                },
+            );
     }
 }
