@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\LocationResource\Pages;
 
-use App\Filament\Resources\LocationResource;
 use Filament\Actions;
+use Filament\Facades\Filament;
 use Filament\Resources\Pages\EditRecord;
+use App\Filament\Resources\LocationResource;
 
 class EditLocation extends EditRecord
 {
@@ -14,7 +15,6 @@ class EditLocation extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
-            Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
         ];
     }
