@@ -19,11 +19,28 @@ class CompanyResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
+    public static function getNavigationGroup(): string
+    {
+        return __('module_names.navigation_groups.company_management');
+    }
+
+    protected static ?int $navigationSort = 1;
+
+    public static function getModelLabel(): string
+    {
+        return __('module_names.companies.label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('module_names.companies.plural_label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label(__('fields.name'))
                     ->required()
                     ->maxLength(255),
             ]);
@@ -33,20 +50,20 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('created_at')->label(__('fields.created_at'))
+                    ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('updated_at')->label(__('fields.updated_at'))
+                    ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('deleted_at')->label(__('fields.deleted_at'))
+                    ->dateTime('Y-m-d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
