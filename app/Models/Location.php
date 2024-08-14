@@ -11,7 +11,7 @@ class Location extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'address'];
+    protected $fillable = ['name', 'address', 'company_id'];
 
     public function company() : BelongsTo
     {
