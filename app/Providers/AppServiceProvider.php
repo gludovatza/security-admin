@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
+use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
+use Illuminate\Contracts\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+            $switch
+                ->locales(['hu','en']); // also accepts a closure
+        });
     }
 }
