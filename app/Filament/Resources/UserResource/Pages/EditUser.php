@@ -12,10 +12,9 @@ class EditUser extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-            Actions\RestoreAction::make(),
-        ];
+        $actions = [Actions\RestoreAction::make()];
+        ($this->record->id == auth()->id()) ?: $actions[] = Actions\DeleteAction::make();
+        return $actions;
     }
 
     protected function getRedirectUrl(): string
