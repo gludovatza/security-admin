@@ -74,6 +74,9 @@ class CompanyPanelProvider extends PanelProvider
                         'logo' => $company?->logo,
                     ]);
                 },
-            );
+            )
+            ->userMenuItems([
+                'role' => MenuItem::make()->label(fn() => __('module_names.roles.label') . ': '. auth()->user()->roles->first()->name),
+            ]);
     }
 }
