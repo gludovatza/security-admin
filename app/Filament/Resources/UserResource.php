@@ -47,7 +47,6 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $isAdmin = auth()->user()->hasRole(Utils::getSuperAdminName());
         return $form
             ->schema([
                 Forms\Components\Section::make()->schema([
@@ -74,18 +73,18 @@ class UserResource extends Resource
                             fn(Page $livewire): string => ($livewire instanceof EditUser) ? __('fields.new_password') : __('fields.password')
                         ),
                     Forms\Components\Select::make('roles')->label(__('module_names.roles.label'))
-                        ->visible($isAdmin)
-                        ->required($isAdmin)
+                        ->visible(User::isSuperAdmin())
+                        ->required(User::isSuperAdmin())
                         ->relationship('roles', 'name')
                         ->columnSpanFull()
                         ->multiple()
                         ->preload()
                         ->searchable(),
                     Forms\Components\Select::make('companies')->label(__('module_names.companies.label'))
-                        ->visible($isAdmin)
-                        ->required($isAdmin)
+                        ->visible(User::isSuperAdmin())
+                        ->required(User::isSuperAdmin())
                         ->relationship('companies', 'name')
-                        ->multiple()
+                        // ->multiple()
                         ->preload()
                         ->searchable()
                 ])
@@ -94,7 +93,8 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $isAdmin = auth()->user()->hasRole(Utils::getSuperAdminName());
+
+        // dd(auth()->user()->roles->first()->name);
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
@@ -104,11 +104,11 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('companies.name')->label(__('module_names.companies.plural_label'))
-                    ->visible($isAdmin)
+                    ->visible(User::isSuperAdmin())
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('roles.name')->label(__('module_names.roles.plural_label'))
-                    ->visible($isAdmin)
+                    ->visible(User::isSuperAdmin() || User::isCompanyAdmin())
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label(__('fields.created_at'))
@@ -163,6 +163,4 @@ class UserResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
-    public static function isAdmin(): bool {}
 }

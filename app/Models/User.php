@@ -83,4 +83,13 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     {
         return $this->companies()->whereKey($tenant)->exists();
     }
+
+    protected static function isSuperAdmin() : bool
+    {
+        return auth()->user()->hasRole(Utils::getSuperAdminName());
+    }
+    protected static function isCompanyAdmin() : bool
+    {
+        return auth()->user()->hasRole('company_admin');
+    }
 }
