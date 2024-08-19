@@ -93,8 +93,6 @@ class UserResource extends Resource
 
     public static function table(Table $table): Table
     {
-
-        // dd(auth()->user()->roles->first()->name);
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
