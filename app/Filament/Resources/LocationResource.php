@@ -13,6 +13,7 @@ use BezhanSalleh\FilamentShield\Support\Utils;
 use App\Filament\Resources\LocationResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\LocationResource\RelationManagers;
+use App\Models\User;
 
 class LocationResource extends Resource
 {
@@ -43,7 +44,6 @@ class LocationResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $isAdmin = auth()->user()->hasRole(Utils::getSuperAdminName());
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->label(__('fields.name'))
@@ -53,8 +53,8 @@ class LocationResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('company_id')->label(__('module_names.companies.label'))
-                    ->visible($isAdmin)
-                    ->required($isAdmin)
+                    ->visible(User::isSuperAdmin())
+                    ->required(User::isSuperAdmin())
                     ->relationship('company', 'name')
                     ->preload()
                     ->searchable()
@@ -63,7 +63,6 @@ class LocationResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $isAdmin = auth()->user()->hasRole(Utils::getSuperAdminName());
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
@@ -73,7 +72,7 @@ class LocationResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company.name')->label(__('module_names.companies.plural_label'))
-                    ->visible($isAdmin)
+                    ->visible(User::isSuperAdmin())
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->label(__('fields.created_at'))
