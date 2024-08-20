@@ -40,24 +40,27 @@ class CompanyResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->label(__('fields.name'))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\FileUpload::make('logo')->label(__('fields.logo'))
-                    ->image()
-                    ->avatar()
-                    ->imageEditor()
-                    ->circleCropper()
-                    ->preserveFilenames()
-                    ->openable()
-                    ->downloadable()
-                    ->maxSize(20000),
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\TextInput::make('name')->label(__('fields.name'))
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\FileUpload::make('logo')->label(__('fields.logo'))
+                        ->image()
+                        ->avatar()
+                        ->imageEditor()
+                        ->circleCropper()
+                        ->preserveFilenames()
+                        ->openable()
+                        ->downloadable()
+                        ->maxSize(20000),
+                ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
                     ->searchable(),

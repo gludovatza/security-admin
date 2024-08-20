@@ -46,24 +46,27 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->label(__('fields.name'))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address')->label(__('fields.address'))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('company_id')->label(__('module_names.companies.label'))
-                    ->visible(User::isSuperAdmin())
-                    ->required(User::isSuperAdmin())
-                    ->relationship('company', 'name')
-                    ->preload()
-                    ->searchable()
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\TextInput::make('name')->label(__('fields.name'))
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('address')->label(__('fields.address'))
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\Select::make('company_id')->label(__('module_names.companies.label'))
+                        ->visible(User::isSuperAdmin())
+                        ->required(User::isSuperAdmin())
+                        ->relationship('company', 'name')
+                        ->preload()
+                        ->searchable()
+                ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
                     ->sortable()

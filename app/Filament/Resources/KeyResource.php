@@ -49,36 +49,38 @@ class KeyResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->label(__('fields.name'))
-                    ->rules(fn(Forms\Get $get) => Rule::unique('keys', 'name')->where('location_id', $get('location_id')))
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('company_id')->label(__('module_names.companies.label'))
-                    ->visible(User::isSuperAdmin())
-                    ->live()
-                    ->dehydrated(false)
-                    ->options(Company::pluck('name', 'id')),
-                Forms\Components\Select::make('location_id')->label(__('module_names.locations.label'))
-                    ->options(function (?Key $record, Forms\Get $get, Forms\Set $set) {
-                        if( User::isSuperAdmin() )
-                        {
-                            if (! empty($record) && empty($get('company_id'))) {
-                                $set('company_id', $record->location->company_id);
-                                $set('location_id', $record->location_id);
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\TextInput::make('name')->label(__('fields.name'))
+                        ->rules(fn(Forms\Get $get) => Rule::unique('keys', 'name')->where('location_id', $get('location_id')))
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\Select::make('company_id')->label(__('module_names.companies.label'))
+                        ->visible(User::isSuperAdmin())
+                        ->live()
+                        ->dehydrated(false)
+                        ->options(Company::pluck('name', 'id')),
+                    Forms\Components\Select::make('location_id')->label(__('module_names.locations.label'))
+                        ->options(function (?Key $record, Forms\Get $get, Forms\Set $set) {
+                            if (User::isSuperAdmin()) {
+                                if (! empty($record) && empty($get('company_id'))) {
+                                    $set('company_id', $record->location->company_id);
+                                    $set('location_id', $record->location_id);
+                                }
+                                $company_id = $get('company_id');
+                            } else {
+                                $company_id = Filament::getTenant()->id;
                             }
-                            $company_id = $get('company_id');
-                        } else {
-                            $company_id = Filament::getTenant()->id;
-                        }
-                        return Location::where('company_id', $company_id)->pluck('name', 'id');
-                    })
-                    ->required(),
+                            return Location::where('company_id', $company_id)->pluck('name', 'id');
+                        })
+                        ->required(),
+                ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->striped()
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label(__('fields.name'))
                     ->searchable()
