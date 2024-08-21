@@ -14,7 +14,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 
 class LocationsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'companyLocations';
+    protected static string $relationship = 'locations';
 
     public static function getModelLabel(): string
     {

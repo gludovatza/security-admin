@@ -23,7 +23,7 @@ class LocationResource extends Resource
 
     protected static ?string $tenantOwnershipRelationshipName = 'company';
 
-    protected static ?string $tenantRelationshipName = 'companyLocations';
+    protected static ?string $tenantRelationshipName = 'locations';
 
     public static function getNavigationGroup(): string
     {
