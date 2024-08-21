@@ -33,4 +33,9 @@ return [
         'label' => 'Kulcs',
         'plural_label' => 'Kulcsok',
     ],
+    'key_mgmt' => [
+        'pick_up' => 'Kulcs felvétel',
+        'drop_off' => 'Kulcs leadás',
+        'menu' => 'Kulcs menedzsment',
+    ],
 ];

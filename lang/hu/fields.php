@@ -20,4 +20,12 @@ return [
     'description' => 'Leírás',
     'updated_at' => 'Frissítve',
     'address' => 'Cím',
+    'pick_up_time' => 'Felvétel ideje',
+    'pick_up_user_id' => 'Felvevő személy',
+    'pick_up_sign' => 'Felvevő személy aláírása',
+    'pick_up_security_sign' => 'Biztonsági őr aláírása (felvételkor)',
+    'drop_off_time' => 'Leadás ideje',
+    'drop_off_user_id' => 'Leadó személy',
+    'drop_off_sign' => 'Leadó személy aláírása',
+    'drop_off_security_sign' => 'Biztonsági őr aláírása (leadáskor)',
 ];

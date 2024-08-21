@@ -34,4 +34,9 @@ return [
         'label' => 'Key',
         'plural_label' => 'Keys',
     ],
+    'key_mgmt' => [
+        'pick_up' => 'Key pick up',
+        'drop_off' => 'Key drop-off',
+        'menu' => 'Key management',
+    ],
 ];

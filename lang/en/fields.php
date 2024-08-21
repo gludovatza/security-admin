@@ -20,4 +20,12 @@ return [
     'description' => 'Description',
     'updated_at' => 'Updated at',
     'address' => 'Address',
+    'pick_up_time' => 'Pick up time',
+    'pick_up_user_id' => 'User at pick up',
+    'pick_up_sign' => 'User\'s sign at pick up',
+    'pick_up_security_sign' => 'Security guard\'s sign at pick up',
+    'drop_off_time' => 'Drop-off time',
+    'drop_off_user_id' => 'User at drop-off',
+    'drop_off_sign' => 'User\'s sign at drop-off',
+    'drop_off_security_sign' => 'Security guard\'s sign at drop-off',
 ];
