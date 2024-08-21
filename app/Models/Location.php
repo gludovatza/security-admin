@@ -24,12 +24,4 @@ class Location extends Model
     {
         return $this->hasMany(Key::class);
     }
-
-    // public function getFullLocationNameAttribute()
-    // {
-    //     if(User::isSuperAdmin()) {
-    //         return $this->company->name . ': ' . $this->name;
-    //     }
-    //     return $this->name;
-    // }
 }
