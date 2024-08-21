@@ -13,6 +13,7 @@ use Filament\Models\Contracts\HasTenants;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use BezhanSalleh\FilamentShield\Support\Utils;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -72,6 +73,16 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class);
+    }
+
+    public function pickUpKeys(): HasMany
+    {
+        return $this->hasMany(KeyPickUpDropOff::class, 'pick_up_user_id');
+    }
+
+    public function dropOffKeys(): HasMany
+    {
+        return $this->hasMany(KeyPickUpDropOff::class, 'drop_off_user_id');
     }
 
     public function getTenants(Panel $panel): Collection

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Key extends Model
 {
@@ -23,5 +24,10 @@ class Key extends Model
     public function company(): \Znck\Eloquent\Relations\BelongsToThrough
     {
         return $this->belongsToThrough(Company::class, Location::class);
+    }
+
+    public function pickUpDropOffEvents() : HasMany
+    {
+        return $this->hasMany(KeyPickUpDropOff::class);
     }
 }

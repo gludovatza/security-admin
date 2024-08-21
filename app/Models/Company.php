@@ -22,7 +22,7 @@ class Company extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function companyLocations(): HasMany
+    public function locations(): HasMany
     {
         return $this->hasMany(Location::class);
     }
@@ -35,5 +35,10 @@ class Company extends Model
     public function keys(): HasManyThrough
     {
         return $this->hasManyThrough(Key::class, Location::class);
+    }
+
+    public function keyPickUpDropOffs() : HasMany
+    {
+        return $this->hasMany(KeyPickUpDropOff::class);
     }
 }
