@@ -13,7 +13,7 @@ class Key extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'location_id'];
+    protected $fillable = ['name', 'location_id', 'available'];
 
     public function location(): BelongsTo
     {

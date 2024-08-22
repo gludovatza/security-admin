@@ -20,6 +20,7 @@ return [
     'description' => 'Description',
     'updated_at' => 'Updated at',
     'address' => 'Address',
+    'available' => 'Available',
     'pick_up_time' => 'Pick up time',
     'pick_up_user_id' => 'User at pick up',
     'pick_up_sign' => 'User\'s sign at pick up',

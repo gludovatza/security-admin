@@ -73,6 +73,13 @@ class KeyResource extends Resource
                             return Location::where('company_id', $company_id)->pluck('name', 'id');
                         })
                         ->required(),
+                    Forms\Components\Toggle::make('available')
+                        ->inline(false)
+                        ->onColor('success')
+                        ->onIcon('heroicon-m-check')
+                        ->offColor('danger')
+                        ->offIcon('heroicon-m-x-mark')
+                        ->disabled()
                 ])
             ]);
     }
@@ -92,6 +99,8 @@ class KeyResource extends Resource
                 Tables\Columns\TextColumn::make('location.name')->label(__('module_names.locations.label'))
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\IconColumn::make('available')->label(__('fields.available'))
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')->label(__('fields.created_at'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable()

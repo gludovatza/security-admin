@@ -7,6 +7,7 @@ use Filament\Facades\Filament;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\KeyPickUpDropOffResource;
+use App\Models\Key;
 
 class CreateKeyPickUpDropOff extends CreateRecord
 {
@@ -24,6 +25,8 @@ class CreateKeyPickUpDropOff extends CreateRecord
 
         if(!isset($data['pick_up_user_id']))
             $data['pick_up_user_id'] = auth()->id();
+
+        Key::find($data['key_id'])->update(['available' => false]);
 
         return $data;
     }

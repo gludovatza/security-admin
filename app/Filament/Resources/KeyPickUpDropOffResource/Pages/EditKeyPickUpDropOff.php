@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\KeyPickUpDropOffResource\Pages;
 
+use App\Models\Key;
 use Filament\Actions;
 use Filament\Actions\Action;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\KeyPickUpDropOffResource;
 
@@ -34,11 +36,14 @@ class EditKeyPickUpDropOff extends EditRecord
             ->keyBindings(['mod+s']);
     }
 
-    protected function mutateFormDataBeforeSave(array $data): array
+    protected function handleRecordUpdate(Model $record, array $data): Model
     {
         if (!isset($data['drop_off_user_id']))
             $data['drop_off_user_id'] = auth()->id();
+        $record->update($data);
 
-        return $data;
+        Key::find($record->key_id)->update(['available' => true]);
+
+        return $record;
     }
 }

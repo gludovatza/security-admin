@@ -85,9 +85,12 @@ class KeyPickUpDropOffResource extends Resource
                         ->options(function (?KeyPickUpDropOff $record, Forms\Get $get, Forms\Set $set) {
                             if (! empty($record) && empty($get('location_id'))) {
                                 $set('location_id', $record->key->location_id);
-                                $set('key_id', $record->key_id);
+                                return Key::find($record->key_id)->pluck('name', 'id');
                             }
-                            return Key::where('location_id', $get('location_id'))->pluck('name', 'id');
+                            return Key
+                                ::where('location_id', $get('location_id'))
+                                ->where('available', true)
+                                ->pluck('name', 'id');
                         })
                         ->required(),
 
